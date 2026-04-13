@@ -7,9 +7,14 @@ use App\Models\Destination;
 
 class DestinationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $destinations = Destination::all();
+        $keyword = $request->input('search');
+        if ($keyword) {
+            $destinations = Destination::where('name', 'like', '%' . $keyword . '%')->paginate(5);
+        } else {
+            $destinations = Destination::orderBy('id')->paginate(5);
+        }
         return view('pages.indexDestinasi', compact('destinations'));
     }
 
