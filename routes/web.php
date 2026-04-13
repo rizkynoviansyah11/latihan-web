@@ -50,3 +50,19 @@ Route::delete('/destinations/{id}', [DestinationController::class, 'delete']);
 
 Route::get('/destinations/{id}/edit', [DestinationController::class, 'edit']);
 Route::put('/destinations/{id}/update', [DestinationController::class, 'update']);
+
+
+
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index']);
+
+Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create']);
+Route::post('/users', [App\Http\Controllers\UserController::class, 'store']);
+
+Route::delete('/users/{id}', [App\Http\Controllers\UserController::class, 'delete']);
+
+Route::get('/user/{id}/edit', [App\Http\Controllers\UserController::class, 'edit']);
+Route::put('/user/{id}/update', [App\Http\Controllers\UserController::class, 'update']);
+
+
+
+
