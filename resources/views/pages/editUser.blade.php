@@ -15,6 +15,7 @@
     </div>
     <div class="form-floating mb-3 width-50">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <small>Biarkan kosong jika tidak ingin mengubah password</small>
         <label for="password">Password</label>
     </div>
         <div class="form-floating mb-3">

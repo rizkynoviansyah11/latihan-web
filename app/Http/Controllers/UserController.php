@@ -61,9 +61,9 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findorFail($id);
         if ($user) {
-            $user->update($request->all());
+            $user->update($request->only(['name', 'email']));
             return redirect('/users')->with('success', 'User berhasil diperbarui.');
         } else {
             return redirect('/users')->with('error', 'User tidak ditemukan.');
