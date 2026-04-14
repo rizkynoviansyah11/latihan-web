@@ -1,6 +1,8 @@
 @extends('master')
 
 @section('content')
+
+
     <div class="container my-5">
         <h1>{{ $destination->name }}</h1>
         <h6>Deskripsi</h6>

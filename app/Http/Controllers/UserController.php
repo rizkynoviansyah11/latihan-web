@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function create()
     {
-        return view('pages.createUser');
+        return view('pages.User.createUser');
     }
 
     public function store(Request $request)
@@ -18,7 +18,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         // Simpan data user ke database
@@ -40,7 +40,7 @@ class UserController extends Controller
         } else {
             $users = User::orderBy('id')->paginate(10);
         }
-        return view('pages.indexUser', compact('users'));
+        return view('pages.User.indexUser', compact('users'));
     }
     
     public function delete($id)
@@ -57,11 +57,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.editUser', compact('user'));
+        return view('pages.User.editUser', compact('user'));
     }
     public function update(Request $request, $id)
     {
-        $user = User::findorFail($id);
+       $user = User::findOrFail($id);
         if ($user) {
             $user->update($request->only(['name', 'email']));
             return redirect('/users')->with('success', 'User berhasil diperbarui.');
@@ -69,5 +69,15 @@ class UserController extends Controller
             return redirect('/users')->with('error', 'User tidak ditemukan.');
         }
     }
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('pages.User.detailUser', compact('user'));
+    }
 
 }
+ 
+
+    
+
+   

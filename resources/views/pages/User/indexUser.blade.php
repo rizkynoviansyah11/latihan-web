@@ -12,7 +12,7 @@
 
     <div class="d-flex justify-content-between mt-3">
         <h1>Daftar User</h1>
-       <form action="/users" method="GET">
+       <form action="{{ route('users.index') }}" method="GET">
         <div class="input-group mb-4 pt-2">
             <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ request('search')}}">
             <button class="btn btn-outline-secondary" type="submit">Search</button>
@@ -33,22 +33,24 @@
         <tbody>
             @foreach($users as $user)
                 <tr>
+                    
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="/user/{{ $user->id }}/edit" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="/user/{{ $user->id }}/delete" method="POST" class="d-inline">
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">✏️</a>
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">👁️</a>
+                        <form action="{{ route('users.delete', $user->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Kamu yakin mau menghapus?')">🗑️</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <a href="/users/create" class="btn btn-primary">Tambah User</a>
+    <a href="{{ route('users.create') }}" class="btn btn-primary">Tambah User</a>
         <div class="mt-3 d-flex justify-content-center">
             {{ $users->links('pagination::bootstrap-5') }}
         </div>

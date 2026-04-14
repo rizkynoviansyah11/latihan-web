@@ -12,7 +12,7 @@
 
     <div class="d-flex justify-content-between mt-3">
         <h1>Daftar Destinasi</h1>
-       <form action="/destinations" method="GET">
+       <form action="{{ route('destinations.index') }}" method="GET">
         <div class="input-group mt-2">
             <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ request('search')}}">
             <button class="btn btn-outline-secondary" type="submit">Search</button>
@@ -37,7 +37,7 @@
         <tbody>
             @foreach ($destinations as $d)
             <tr>
-                <td><a href="detaildestinasi/{{$d->id}}">{{ $loop->iteration }}</a></td>
+                <td><a href="{{ route('destinations.show', $d->id) }}">{{ $loop->iteration }}</a></td>
                 
                 
                 <td>{{ $d->name }}</td>
@@ -48,9 +48,9 @@
                 <td>{{ $d->ticket_price }}</td>
                 <td>
                     <div class="btn-group" role="group">
-                    <a href="/detaildestinasi/{{ $d->id }}" class="btn btn-info btn-sm text-white">👁️</a>
-                    <a href="/destinations/{{ $d->id }}/edit" class="btn btn-warning btn-sm">✏️</a>
-                    <form action="/destinations/{{ $d->id}}" method="POST" style="display: inline;">
+                    <a href="{{ route('destinations.show', $d->id) }}" class="btn btn-info btn-sm text-white">👁️</a>
+                    <a href="{{ route('destinations.edit', $d->id) }}" class="btn btn-warning btn-sm">✏️</a>
+                    <form action="{{ route('destinations.delete', $d->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Kamu Yakin Ingin Menghapus {{ $d->name }}?')">🗑️</button>
@@ -61,7 +61,7 @@
             @endforeach
         </tbody>
     </table>
-    <a href="/destinations/create" class="btn btn-success">Tambah Destinasi</a>
+    <a href="{{ route('destinations.create') }}" class="btn btn-success">Tambah Destinasi</a>
     <div class="mt-3 d-flex justify-content-center">
         {{ $destinations->links('pagination::bootstrap-5') }}
     </div>
