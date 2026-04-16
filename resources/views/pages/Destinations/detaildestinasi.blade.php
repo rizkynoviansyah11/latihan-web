@@ -1,15 +1,29 @@
 @extends('master')
 
 @section('content')
-
-
     <div class="container my-5">
-        <h1>{{ $destination->name }}</h1>
-        <h6>Deskripsi</h6>
-        <p>{{ $destination->description }}</p>
-        <p><h6>Lokasi :</h6>{{ $destination->location }}</p>
-        <p><h6>Hari Buka :</h6>{{ $destination->working_days }}</p>
-        <p><h6>Jam Buka :</h6> {{ $destination->working_hours }}</p>
-        <p><h6>Harga Tiket :</h6> {{ $destination->ticket_price }}</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Detail Destinasi</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                             <p class="text-muted">Nama Destinasi</p>
+                            <h4 class="text-primary">{{ $destination->name }}</h4>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-muted mb-1">Deskripsi:</p>
+                            <p class="fw-bold">{{ $destination->description }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <a href="/destinations" class="btn btn-secondary">Kembali</a>
+                        <a href="/destinations/{{ $destination->id }}/edit" class="btn btn-warning">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

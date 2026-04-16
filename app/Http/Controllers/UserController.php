@@ -22,7 +22,7 @@ class UserController extends Controller
         ]);
 
         // Simpan data user ke database
-        User::create([
+        \App\Models\User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
@@ -61,9 +61,21 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-       $user = User::findOrFail($id);
+
+    
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password'=> 'nullable|min:8|confirmed'
+        ]);
+    if(isset($request->password)){
+        $validatedData['password'] = bcrypt($request['password']);
+    }
+        
+       $user = \App\Models\User::findOrFail($id);
+       $user->update($validatedData);
         if ($user) {
-            $user->update($request->only(['name', 'email']));
+            $user->update($validatedData);
             return redirect('/users')->with('success', 'User berhasil diperbarui.');
         } else {
             return redirect('/users')->with('error', 'User tidak ditemukan.');

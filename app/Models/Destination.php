@@ -15,4 +15,9 @@ class Destination extends Model
         'working_hours',
         'ticket_price',
     ];
+
+    public function atractions()
+    {
+        return $this->hasMany( related: Atraction::class);
+    }
 }

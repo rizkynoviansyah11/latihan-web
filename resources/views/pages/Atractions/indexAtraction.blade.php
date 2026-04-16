@@ -37,6 +37,7 @@
                     <td>{{ $atraction->name }}</td>
                     <td>{{ $atraction->description }}</td>
                     <td>
+                        <div class="btn-group" role="group">
                         <a href="{{ route('atractions.edit', $atraction->id) }}" class="btn btn-sm btn-primary">✏️</a>
                         <a href="{{ route('atractions.show', $atraction->id) }}" class="btn btn-sm btn-info">👁️</a>
                         <form action="{{ route('atractions.delete', $atraction->id) }}" method="POST" class="d-inline">
@@ -44,6 +45,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Kamu yakin mau menghapus?')">🗑️</button>
                         </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach

@@ -31,7 +31,20 @@ class DestinationController extends Controller
 
     public function store(Request $request)
     {
-        Destination::create($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'ticket_price' => 'required|numeric',
+            'location' => 'required|string|max:255',
+            'working_hours' => 'required|string|max:255',
+            'working_days' => 'required|string|max:255',
+        ],[
+            "name.required"=>"Pastikan Nama itu di isi",
+            "description.required"=>"Pastikan mengisi deskripsi",
+            "ticket_price"=>"Pastikan mengisi harga tiket",
+            "working_hours"=>"Pastikan mengisi hari operasional"
+        ]);
+        \App\Models\Destination::create($validatedData);
 
         return redirect('/destinations')->with('success', 'Destinasi berhasil ditambahkan.');
     }
@@ -54,9 +67,23 @@ class DestinationController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $destination = Destination::find($id);
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'ticket_price' => 'required|numeric',
+                'location' => 'required|string|max:255',
+                'working_hours' => 'required|string|max:255',
+                'working_days' => 'required|string|max:255',
+            ],[
+            "name.required"=>"Pastikan Nama itu di isi",
+            "description.required"=>"Pastikan mengisi deskripsi",
+            "ticket_price.required"=>"Pastikan mengisi harga tiket",
+            "working_hours.required"=>"Pastikan mengisi hari operasional"
+        ]);
+        $destination = \App\Models\Destination::find($id);
+        $destination->update($validatedData);
         if ($destination) {
-            $destination->update($request->all());
+            $destination->update($validatedData);
             return redirect('/destinations')->with('success', 'Destinasi berhasil diperbarui.');
         } else {
             return redirect('/destinations')->with('error', 'Destinasi tidak ditemukan.');

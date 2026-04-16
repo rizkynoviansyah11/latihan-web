@@ -10,5 +10,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Atraction extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = [
+        'destination-id',
+        'name', 
+        'description'
+    ];
+
+    public function destination()
+    {
+        return $this->belongsTo( related: Destination::class);
+    }
 }

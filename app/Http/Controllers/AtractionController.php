@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Atraction;
+use App\Models\Destination;
 
 class AtractionController extends Controller
 {
@@ -20,25 +21,33 @@ class AtractionController extends Controller
 
     public function show($id)
     {
-        $atraction = Atraction::findOrFail($id);
+        $atraction = \App\Models\Atraction::findOrFail($id);
         return view('pages.Atractions.detailAtraction', compact('atraction'));
     }
 
     public function create()
     {
-        return view('pages.Atractions.createAtraction');
+        $destinations = Destination::all();
+        return view('pages.Atractions.createAtraction', compact('destinations'));
     }
 
     public function store(Request $request)
     {
-        Atraction::create($request->all());
 
+        $validatedData = $request->validate([
+            'destination_id' => 'required',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable',
+        ]);
+        // dd($request->all(),$validatedData);
+        $atraction = \App\Models\Atraction::create($validatedData);
+        $atraction->update($validatedData);
         return redirect('/atractions')->with('success', 'Atraksi berhasil ditambahkan.');
     }
 
     public function delete($id)
     {
-        $atraction = Atraction::find($id);
+        $atraction = \App\Models\Atraction::find($id);
         if ($atraction) {
             $atraction->delete();
             return redirect('/atractions')->with('success', 'Atraksi berhasil dihapus.');
@@ -49,14 +58,24 @@ class AtractionController extends Controller
 
     public function edit($id)
     {
-        $atraction = Atraction::find($id);
-        return view('pages.Atractions.editAtraction', compact('atraction'));
+        $destinations = Destination::all();
+        $atraction = \App\Models\Atraction::findOrFail($id);
+        return view('pages.Atractions.editAtraction', compact('atraction', 'destinations'));
     }
     public function update(Request $request, $id)
     {
-        $atraction = Atraction::find($id);
+        $validatedData = $request->validate([
+            'destination_id' => 'required',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable',
+        ],[
+            "name.required"=>"Pastikan ada mengisi nama",
+            
+        ]);
+
+        $atraction = \App\Models\Atraction::find($id);
         if ($atraction) {
-            $atraction->update($request->all());
+            $atraction->update($validatedData);
             return redirect('/atractions')->with('success', 'Atraksi berhasil diperbarui.');
         } else {
             return redirect('/atractions')->with('error', 'Atraksi tidak ditemukan.');

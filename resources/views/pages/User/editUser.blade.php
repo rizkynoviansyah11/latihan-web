@@ -2,6 +2,15 @@
 
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -23,16 +32,33 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
                         <div class="mb-3">
-                            <label for="description" class="floating-input">Description</label>
-                            <textarea id="description" name="description"
-                                class="form-control @error('description') is-invalid @enderror"
-                                rows="4">{{ old('description', $user->description) }}</textarea>
-                            @error('description')
+                            <label for="email" class="floating-input" aria-placeholder="Email User">Email User</label>
+                            <input type="email" id="email" name="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                value="{{ old('email', $user->email) }}">
+                            @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="password" class="floating-input" aria-placeholder="Password">Password</label>
+                            <input type="password" id="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror">
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="floating-input" aria-placeholder="Confirm Password">Confirm Password</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation"
+                                class="form-control @error('password_confirmation') is-invalid @enderror">
+                            @error('password_confirmation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                       
 
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>

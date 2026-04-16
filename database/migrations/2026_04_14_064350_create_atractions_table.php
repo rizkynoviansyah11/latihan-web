@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('atractions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId( column: 'destination_id')->constrained()->onDelete( action: 'cascade');
             $table->string( column: 'name');
             $table->text( column: 'description')->nullable();
             $table->timestamps();
