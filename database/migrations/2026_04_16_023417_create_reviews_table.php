@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Atraction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('atractions', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId( column: 'destination_id')->constrained("destinations")->onDelete( action: 'cascade');
+            $table->foreignId( column: 'atraction_id')->constrained("atractions")->onDelete( action: 'cascade');
             $table->string( column: 'name');
-            $table->text( column: 'description')->nullable();
+            $table->text( column: 'comment');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('atractions');
+        Schema::dropIfExists('reviews');
     }
 };

@@ -16,46 +16,46 @@
             <div class="col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">Edit Atraction</h4>
+                        <h4 class="mb-0">Edit Review</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('atractions.update', $atraction->id) }}" method="POST">
+                        <form action="{{ route('reviews.update', $review->id) }}" method="POST">
                             @csrf
                             @method('PUT')
 
                             <div class="form-floating mb-2 width-50">
-                                <label for="destination_id" class="form-label pt-2">Destination</label>
-                                <select name="destination_id" id="destination_id"
-                                    class="form-select @error('destination_id') is-invalid @enderror" required>
-                                    <option value="">Select Destination</option>
-                                    @foreach ($destinations as $destination)
-                                        <option value="{{ $destination->id }}"
-                                            {{ old('destination_id') == $destination->id ? 'selected' : '' }}>
-                                            {{ $destination->name }}
+                                <label for="atraction_id" class="form-label pt-2">Atraksi</label>
+                                <select name="atraction_id" id="atraction_id"
+                                    class="form-select @error('atraction_id') is-invalid @enderror" required>
+                                    <option value="">Select Atraction</option>
+                                    @foreach ($atractions as $atraction)
+                                        <option value="{{ $atraction->id }}"
+                                            {{ old('atraction_id') == $atraction->id ? 'selected' : '' }}>
+                                            {{ $atraction->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('destination_id')
+                                @error('atraction_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="name" class="floating-input" aria-placeholder="Nama Atraction">Nama
-                                    Atraction</label>
+                                    Review</label>
                                 <input type="text" id="name" name="name"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    value="{{ old('name', $atraction->name) }}" required>
+                                    value="{{ old('name', $review->name) }}" required>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="floating-input">Description</label>
-                                <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror"
-                                    rows="4" required>{{ old('description', $atraction->description) }}</textarea>
-                                @error('description')
+                                <label for="comment" class="floating-input">Komentar</label>
+                                <textarea id="comment" name="comment" class="form-control @error('description') is-invalid @enderror" rows="4"
+                                    required>{{ old('comment', $review->atraction) }}</textarea>
+                                @error('comment')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

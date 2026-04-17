@@ -42,7 +42,7 @@ class UserController extends Controller
         }
         return view('pages.User.indexUser', compact('users'));
     }
-    
+
     public function delete($id)
     {
         $user = User::find($id);
@@ -62,18 +62,18 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-    
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password'=> 'nullable|min:8|confirmed'
+            'password' => 'nullable|min:8|confirmed'
         ]);
-    if(isset($request->password)){
-        $validatedData['password'] = bcrypt($request['password']);
-    }
-        
-       $user = \App\Models\User::findOrFail($id);
-       $user->update($validatedData);
+        if (isset($request->password)) {
+            $validatedData['password'] = bcrypt($request['password']);
+        }
+
+        $user = \App\Models\User::findOrFail($id);
+        $user->update($validatedData);
         if ($user) {
             $user->update($validatedData);
             return redirect('/users')->with('success', 'User berhasil diperbarui.');
@@ -86,10 +86,4 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('pages.User.detailUser', compact('user'));
     }
-
 }
- 
-
-    
-
-   

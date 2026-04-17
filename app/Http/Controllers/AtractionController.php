@@ -68,9 +68,9 @@ class AtractionController extends Controller
             'destination_id' => 'required',
             'name' => 'required|string|max:255',
             'description' => 'nullable',
-        ],[
-            "name.required"=>"Pastikan ada mengisi nama",
-            
+        ], [
+            "name.required" => "Pastikan ada mengisi nama",
+
         ]);
 
         $atraction = \App\Models\Atraction::find($id);
